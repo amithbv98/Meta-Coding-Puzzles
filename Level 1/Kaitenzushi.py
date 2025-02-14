@@ -1,21 +1,14 @@
 def getMaximumEatenDishCount(N: int, D: List[int], K: int) -> int:
-  queue = []
   d = {}
-  l = 0
   res = 0
+  count = 0
   for item in D:
-    d[item] = 0
-  for item in D:
-    if d[item] == 0:
+    if item not in d:
+      d[item] = count
+      count += 1
       res += 1
-      if l < K:
-        queue.append(item)
-        d[item] = 1
-        l += 1
-      else:
-        d[queue[0]] = 0
-        queue.pop(0)
-        queue.append(item)
-        d[item] = 1
-        
+    elif d[item] < count - K:
+      res += 1
+      d[item] = count
+      count += 1
   return res
